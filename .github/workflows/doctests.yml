@@ -1,4 +1,4 @@
-name: doctest 
+name: doctests
 
 on: 
   push: 
