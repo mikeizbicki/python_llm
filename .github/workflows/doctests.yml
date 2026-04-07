@@ -17,8 +17,8 @@ jobs:
         run: |
           pip install -r requirements.txt
       - name: rundoctest
-      - env: 
-        GROQ_API_KEY: ${{secrets.GROQ_API_KEY}}
+        env: 
+          GROQ_API_KEY: ${{secrets.GROQ_API_KEY}}
         run:
           coverage run -m pytest chat.py --doctest-modules 
           coverage report -m
