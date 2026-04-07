@@ -1,0 +1,25 @@
+name: doctest 
+on: 
+  push: 
+  pull_request:
+
+jobs: 
+  test:
+    runs-on: ubuntu-lastst
+    steps: 
+      -uses: actions/checkout@v4
+
+      -name: python 
+      uses: actions/setup-python@v5
+      with: 
+        python-version: '3.12'
+
+      -name: installdep
+      run: |
+         pip install -r requirements.txt
+
+      -name: rundoctest
+      run: | 
+        coverage run -m pytest chat.py --doctest-modules 
+        coverage report -m 
+
