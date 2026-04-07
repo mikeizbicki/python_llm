@@ -10,7 +10,7 @@ jobs:
   test:
     runs-on: ubuntu-lastst
     steps: 
-      uses: actions/checkout@v4
+      -uses: actions/checkout@v4
 
       -name: python 
       uses: actions/setup-python@v5
@@ -22,6 +22,8 @@ jobs:
          pip install -r requirements.txt
 
       -name: rundoctest
+      -env:
+        GROQ_API_KEY: ${{secrets.GROQ_API_KEY}}
       run: | 
         coverage run -m pytest chat.py --doctest-modules 
         coverage report -m 
