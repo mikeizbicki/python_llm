@@ -1,0 +1,55 @@
+name: Python Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # VM to run your workflow
+
+    env:
+      # Load your GitHub secret into an environment variable
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+    steps:
+      # 1️⃣ Checkout your repo
+      - uses: actions/checkout@v3
+
+      # 2️⃣ Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest coverage codecov
+
+      # 4️⃣ Run tests with coverage
+      - name: Run tests and collect coverage
+        run: |
+          coverage run -m pytest chat.py --doctest-modules
+          coverage report -m
+          COVERAGE_PERCENT=$(coverage report | tail -1 | awk '{print $NF}' | sed 's/%//')
+          echo "Coverage: $COVERAGE_PERCENT%"
+          if [ $COVERAGE_PERCENT -ge 90 ]; then
+            echo "status=passed" >> $GITHUB_ENV
+          else
+            echo "status=failed" >> $GITHUB_ENV
+          fi
+
+      - name: Create coverage badge
+        run: |
+          if [ "$status" = "passed" ]; then
+            COLOR="brightgreen"
+          else
+            COLOR="red"
+          fi
+          echo "https://img.shields.io/badge/coverage-$status-$COLOR" > badge_url.txt
+        shell: bash

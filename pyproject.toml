@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-llm-lucy"   # change this if needed (must be unique)
+version = "0.1.0"
+description = "My Python LLM project"
+authors = [
+  { name="Lucy", email="your_email@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+
+dependencies = [
+  "requests"
+]

@@ -1,7 +1,8 @@
 .env
-venv
+.venv
 __pycache__
 .coverage
 __pycache__/
 htmlcov/
 .pypirc
+.DS_Store
