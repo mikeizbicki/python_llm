@@ -5,7 +5,7 @@
 
 [![coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)](#)
 
-This is my python llm project. It is a chatbot library using Groq LLM. 
+This is my python llm project.  
 
 Check out my project on [PyPi](https://pypi.org/project/cmc-csci005-yourname/#description)
 
