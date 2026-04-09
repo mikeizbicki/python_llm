@@ -16,7 +16,7 @@ class Chat:
 
     >>> chat2 = Chat()
     >>> chat2.send_message('what is my name?', temperature=0.0)
-    "Arrr, I be not aware o' yer name, matey. Yer identity be a mystery to me."
+    "Arrr, I be not aware o' yer name, matey."
     '''
     client = Groq()
     def __init__(self):
@@ -27,7 +27,7 @@ class Chat:
                     "content": "Write the output in 1-2 sentences. Talk like pirate."
                 },
             ]
-    def send_message(self, message, temperature=0.0):
+    def send_message(self, message, temperature=0.8):
         self.messages.append(
             {
                 # system: never change; user: changes a lot;
@@ -66,11 +66,11 @@ def repl():
 >>> import builtins
 >>> builtins.input = monkey_input
 >>> repl()
-    chat> Hello, I am monkey.
-    Arrr, a sneaky little monkey, eh? Ye be swingin' into our conversation, matey!
-    chat> Goodbye.
-    Arrr, a sneaky little monkey, eh? Ye be swingin' into our conversation, matey!
-    <BLANKLINE> 
+chat> Hello, I am monkey.
+Arrr, ye be a mischievous little monkey, eh? Yer chatterin' be music to me ears, matey!
+chat> Goodbye.
+Farewell, me scurvy monkey friend, may the winds o' fortune blow in yer favor!
+<BLANKLINE> 
     '''
     import readline
     chat = Chat()
