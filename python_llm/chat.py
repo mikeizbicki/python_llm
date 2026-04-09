@@ -77,7 +77,7 @@ def repl():
     try:
         while True:
             user_input = input('chat> ')
-            response = chat.send_message(user_input)
+            response = chat.send_message(user_input, temperature=0.1)
             print(response)
     except KeyboardInterrupt:
         print()
