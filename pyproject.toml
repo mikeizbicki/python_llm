@@ -15,6 +15,7 @@ requires-python = ">=3.8"
 dependencies = [
   "requests"
   "groq"
+  "python-dotenv"
 ]
 
 [project.scripts]
