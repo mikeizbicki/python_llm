@@ -34,7 +34,7 @@ jobs:
       # 4️⃣ Run tests with coverage
       - name: Run tests and collect coverage
         run: |
-          coverage run -m pytest chat.py --doctest-modules
+          coverage run -m pytest python_llm/chat.py --doctest-modules
           coverage report -m
           COVERAGE_PERCENT=$(coverage report | tail -1 | awk '{print $NF}' | sed 's/%//')
           echo "Coverage: $COVERAGE_PERCENT%"
