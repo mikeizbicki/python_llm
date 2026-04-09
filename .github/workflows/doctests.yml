@@ -22,6 +22,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run doctests
+        env: 
+          GROQ_API_KEY: ${{secrets.GROQ_API_KEY}}
         run: |
           python -m doctest --verbose python_llm/chat.py
 
