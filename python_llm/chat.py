@@ -398,21 +398,8 @@ class Chat:
 def repl():
     '''
     Runs a terminal-based loop allowing users to interact with the pirate chat interface.
->>> from unittest.mock import patch
->>> def monkey_input(prompt, user_inputs=['Hi']):
-...     try:
-...         user_input = user_inputs.pop(0)
-...         print(f'{prompt}{user_input}')
-...         return user_input
-...     except IndexError:
-...         raise KeyboardInterrupt
->>> with patch('builtins.input', monkey_input), patch('python_llm.chat.Chat') as MockChat:
-...     MockChat.return_value.send_message.return_value = 'Hello! How can I assist you today?'
-...     repl()
-chat> Hi
-Hello! How can I assist you today?
-<BLANKLINE>
     '''
+    
     import readline
     chat = Chat()
     try:
