@@ -196,7 +196,7 @@ class Chat:
 
     >>> chat = Chat()
     >>> chat.send_message('my name is bob', temperature=0.0)
-    'Nice to meet you, Bob! How can I assist you today?'
+    'Nice to meet you, Bob! How can I help you today?'
     >>> chat.send_message('what is my name? just say my name', temperature=0.0)
     'Your name is Bob.'
 
@@ -412,10 +412,11 @@ def repl():
 ...     except IndexError:
 ...         raise KeyboardInterrupt
 >>> with patch('builtins.input', monkey_input), patch('python_llm.chat.Chat') as MockChat:
-...     MockChat.return_value.send_message.return_value = 'Hello!'
+...     MockChat.return_value.send_message.return_value = 'Hello! How can I assist you today?'
 ...     repl()
 chat> Hi
-Hello!
+Hello! How can I assist you today?
+<BLANKLINE>
     '''
     import readline
     chat = Chat()
