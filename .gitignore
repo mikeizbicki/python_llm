@@ -1,8 +1,17 @@
-.env
-.venv
-__pycache__
-.coverage
-__pycache__/
-htmlcov/
-.pypirc
+# Mac junk
 .DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+
+# Egg info
+*.egg-info/
+
+# Environment variables
+.env

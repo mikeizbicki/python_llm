@@ -1,0 +1,9 @@
+[submodule "test_projects/webpage"]
+	path = test_projects/webpage
+	url = https://github.com/LucyyyyyyT/LucyyyyyyT.github.io
+[submodule "test_projects/markdown-compiler"]
+	path = test_projects/markdown-compiler
+	url = https://github.com/LucyyyyyyT/lab_webscraping
+[submodule "test_projects/ebay-scraper"]
+	path = test_projects/ebay-scraper
+	url = https://github.com/LucyyyyyyT/lab_webscraping
