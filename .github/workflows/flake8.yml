@@ -1,0 +1,20 @@
+name: flake8
+on:
+  push:
+    branches: ['*']
+jobs:
+  tests:
+    strategy:
+      matrix:
+        python: [3.11]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{matrix.python}}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{matrix.python}}
+      - name: Run tests
+        run: |
+          pip3 install -r requirements.txt
+          flake8 markdown_compiler --ignore=E501
