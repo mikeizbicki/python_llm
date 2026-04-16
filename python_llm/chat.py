@@ -414,8 +414,8 @@ def repl():
 >>> with patch('builtins.input', monkey_input), patch('python_llm.chat.Chat') as MockChat:
 ...     MockChat.return_value.send_message.return_value = 'Hello!'
 ...     repl()
-chat> Hi
-Hello!
+    chat> Hi
+    Hello!
     '''
     import readline
     chat = Chat()
