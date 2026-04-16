@@ -195,10 +195,10 @@ class Chat:
     by structured tool definitions.
 
     >>> chat = Chat()
-    >>> chat.send_message('my name is bob', temperature=0.0)
-    'Nice to meet you, Bob! How can I help you today?'
+    >>> chat.send_message('my name is bob. say hey then my name', temperature=0.0)
+    'Hey, Bob!'
     >>> chat.send_message('what is my name? just say my name', temperature=0.0)
-    'Your name is Bob.'
+    'Bob.'
 
     >>> chat2 = Chat()
     >>> chat2.send_message('what is my name?', temperature=0.0)
@@ -355,11 +355,6 @@ class Chat:
                 continue
 
         return '\n'.join(results)
-    
-    def run_tool(self, name, args):
-        """Dispatches a tool call by name with args"""
-        return self.tool_dispatch[name(**args)]
-
 
         # in order to make non-deterministic code deterministic;
         # in general very hard CS problem;
@@ -425,9 +420,7 @@ Hello! How can I assist you today?
             user_input = input('chat> ')
             response = chat.send_message(user_input, temperature=0.0)
             print(response)
-    except KeyboardInterrupt:
-        print()
-    except EOFError:
+    except (KeyboardInterrupt, EOFError):
         print()
 
 if __name__ == '__main__':

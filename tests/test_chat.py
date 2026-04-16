@@ -5,6 +5,9 @@ import json
 import pytest
 from unittest.mock import MagicMock, patch, mock_open
 
+import sys
+sys.path.append('python_llm')
+
 
 
 # Helpers to build fake Groq responses
@@ -142,6 +145,50 @@ class TestEvalNode:
         with pytest.raises(ValueError):
             _eval_node(node)
 
+    def test_constant_numeric(self):
+        from python_llm.chat import _eval_node
+        node = ast.parse('42', mode='eval').body
+        assert _eval_node(node) == 42
+
+    def test_constant_non_numeric_raises(self):
+        """String constant should raise ValueError."""
+        from python_llm.chat import _eval_node
+        node = ast.parse('"hello"', mode='eval').body
+        with pytest.raises(ValueError, match='invalid expression'):
+            assert _eval_node(node)
+
+    def test_binop_allowed(self):
+        from python_llm.chat import _eval_node
+        node = ast.parse('2 + 2', mode='eval').body
+        assert _eval_node(node) == 4
+
+    def test_binop_disallowed_operator_raises(self):
+        """Bitwise OR is not in _ALLOWED_OPS, should raise ValueError."""
+        from python_llm.chat import _eval_node
+        node = ast.parse('2 | 3', mode='eval').body
+        with pytest.raises(ValueError, match='invalid expression'):
+            _eval_node(node)
+
+    def test_unaryop_allowed(self):
+        """Unary minus should return negative value."""
+        from python_llm.chat import _eval_node
+        node = ast.parse('-5', mode='eval').body
+        assert _eval_node(node) == -5
+
+    def test_unaryop_disallowed_operator_raises(self):
+        """Bitwise NOT (~) is not in _ALLOWED_OPS, should raise ValueError."""
+        from python_llm.chat import _eval_node
+        node = ast.parse('~5', mode='eval').body
+        with pytest.raises(ValueError, match='invalid expression'):
+            assert _eval_node(node)
+
+    def test_unsupported_node_type_raises(self):
+        """A non-numeric, non-op node type should raise ValueError."""
+        from python_llm.chat import _eval_node
+        node = ast.parse('x', mode='eval').body  # ast.Name node
+        with pytest.raises(ValueError, match='invalid expression'):
+           assert  _eval_node(node)
+
 
 
 # Chat.calculate
@@ -177,6 +224,7 @@ class TestCalculate:
 
     def test_negative_number(self, chat):
         assert chat.calculate('-5 + 10') == '5'
+    
 
 
 # Chat.ls
@@ -236,6 +284,23 @@ class TestCat:
         with patch('builtins.open', m):
             result = chat.cat('somefile.txt')
         assert result == 'utf16 contents'
+
+    def test_unicode_decode_error_both_fail(self, chat):
+        """Both utf-8 and utf-16 raise errors; should return cannot decode file."""
+        m = mock_open()
+        m.side_effect = [
+            UnicodeDecodeError('utf-8', b'', 0, 1, 'reason'),
+            UnicodeDecodeError('utf-16', b'', 0, 1, 'reason')
+        ]
+        with patch('builtins.open', m):
+            result = chat.cat('somefile.txt')
+        assert result == 'Error: cannot decode file'
+
+    def test_general_exception(self, chat):
+        """open raises a general exception; should return Error: <message>."""
+        with patch('builtins.open', side_effect=PermissionError('permission denied')):
+            result = chat.cat('somefile.txt')
+        assert result == 'Error: [Errno 13] Permission denied: \'somefile.txt\''
 
 
 
