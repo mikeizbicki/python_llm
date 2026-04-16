@@ -1,8 +1,0 @@
-#!/bin/sh
-'''exec' "/Users/apple/Documents/Uni/First year/2nd Sem/Computing for web/docsum/.venv/bin/python" "$0" "$@"
-' '''
-import sys
-from coverage.cmdline import main_deprecated
-if __name__ == '__main__':
-    sys.argv[0] = sys.argv[0].removesuffix('.exe')
-    sys.exit(main_deprecated())
