@@ -17,4 +17,4 @@ jobs:
       - name: Run tests
         run: |
           pip3 install -r requirements.txt
-          flake8 markdown_compiler --ignore=E501
+          flake8 .
