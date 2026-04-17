@@ -12,4 +12,5 @@ A chat agent that depends on command line and uses Groq's LLM API. It is able to
 <video controls src="Screen Recording 2026-04-16 at 19.32.54.mov" title="Title">
 Here is a working example of my code:
 ![Demo](demo.gif)
+
 ##Usage
