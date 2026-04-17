@@ -9,7 +9,7 @@ An AI-powered document chat agent that lets users query files using natural lang
 [![coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)](#)
 
 A chat agent that depends on command line and uses Groq's LLM API. It is able to hold conversations and answer questions. It can also call built-in tools: (`calculate`, `cat`, `grep`, `ls`). 
-<video controls src="Screen Recording 2026-04-16 at 19.32.54.mov" title="Title">
+
 Here is a working example of my code:
 ![Demo](demo.gif)
 
