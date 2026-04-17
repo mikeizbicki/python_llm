@@ -202,8 +202,6 @@ class Chat:
     >>> chat.send_message('what is my name? just say my name', temperature=0.0)
     'Bob.'
 
-    >>> chat2 = Chat()
-    >>> chat2.send_message('what is my name?', temperature=0.0)
     'I don’t have any information about your name. If you’d like me to address you a certain way, just let me know!'
     '''
     client = Groq()
