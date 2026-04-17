@@ -15,6 +15,7 @@ load_dotenv()
 
 MODEL = 'openai/gpt-oss-120b'
 
+# you were supposed to have a tools folder that contains the source code for the individual tools and their schema's inside of it
 CALCULATE_SCHEMA = {
     'type': 'function',
     'function': {
@@ -217,11 +218,17 @@ class Chat:
             'grep': self.grep
         }
 
+    # notice that these functions do not use the `self` variable at all;
+    # they should therefore not be contained in the Chat class;
     def calculate(self, expression):
         """
         Evaluate a simple arithmetic expression and return the result.
 
         >>> c = Chat()
+        
+        # the line above would needed in your doctests if your code
+        # was in its own function
+        
         >>> c.calculate('2 + 2')              # Hits the standard integer path
         '4'
         >>> c.calculate('100 / 4')            # Hits Branch: float.is_integer() with '/'
@@ -259,6 +266,12 @@ class Chat:
         """
         List files/folders in a directory, asciibetically, one per line.
 
+        # the test cases here are a bit "cheesy"
+        # you could very easily actually list out all of the 
+        # files in a certain folder to demonstrate what the ls command does
+        # these tests get good coverage, but they don't actually
+        # demonstrate what the code does at all
+
         >>> c = Chat()
         >>> 'python_llm/chat.py' in c.ls('.')
         False
@@ -279,6 +292,8 @@ class Chat:
     def cat(self, path):
         '''
         Opens a file and returns its contents as a string.
+
+        # these tests have the same cheesiness property
 
         >>> c = Chat()
         >>> c.cat('python_llm/chat.py')[1:11]
@@ -311,6 +326,9 @@ class Chat:
         """
         Search for lines matching a regex pattern (recursive).
         Returns matching lines as 'filename:line', or an error string
+        # Again, very cheesy tests;
+        # you claim that the output format is 'filename:line' but you
+        # don't actually demonstrate that anywhere
 
         >>> c = Chat()
         >>> result = c.grep('def is_path_safe', 'python_llm/chat.py')
@@ -363,6 +381,16 @@ class Chat:
     def send_message(self, user_message, temperature=0.0):
         """
         Sends a user message to the AI model and stores the pirate-themed response in history.
+
+        # these tests do not demonstrate a lot of needed features:
+        # for example, they don't demonstrate that two separate
+        # instances of Chat() are independent of each other or that
+        # multiple send_messages can be used in the same conversation
+        # (we did both of these in class)
+        #
+        # in this case, the 'HELLO' in cat is okay due to the potential
+        # non-determinism of the llm output
+        # (this is different than the above tests)
 
         >>> a = Chat()
         >>> cat = a.send_message('Say only the word HELLO and nothing else.')
